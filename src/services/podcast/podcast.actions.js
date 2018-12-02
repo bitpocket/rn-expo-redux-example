@@ -1,33 +1,39 @@
 import axios from "axios";
-import { store } from "./../../store";
 import {
   FETCH_PODCAST_SUCCESS,
+  FETCH_PODCAST_FAILURE,
   SET_SEARCH_PHRASE,
   CLEAR_SEARCH_PHRASE
 } from "./podcast.const";
 
-export const setSearchPhrase = searchPhrase => ({
-  type: SET_SEARCH_PHRASE,
-  searchPhrase
-});
+export const setSearchPhrase = searchPhrase => dispatch =>
+  dispatch({
+    type: SET_SEARCH_PHRASE,
+    searchPhrase
+  });
 
-export const fetchPodcastSuccess = response => ({
-  type: FETCH_PODCAST_SUCCESS,
-  response
-});
+export const fetchPodcastSuccess = response => dispatch =>
+  dispatch({
+    type: FETCH_PODCAST_SUCCESS,
+    response
+  });
 
-export const clearSearchPhrase = () => ({
-  type: CLEAR_SEARCH_PHRASE
-});
+export const fetchPodcastFailed = reason => dispatch =>
+  dispatch({
+    type: FETCH_PODCAST_FAILURE,
+    reason
+  });
 
-export const fetchPodcasts = searchPhrase => {
+export const clearSearchPhrase = () => dispatch =>
+  dispatch({
+    type: CLEAR_SEARCH_PHRASE
+  });
+
+export const fetchPodcasts = searchPhrase => dispatch => {
   axios({
     method: "get",
     url: `https://itunes.apple.com/search?term=${searchPhrase}&limit=25`
-  }).then(response => {
-    store.dispatch({
-      type: FETCH_PODCAST_SUCCESS,
-      response
-    });
-  });
+  })
+    .then(response => dispatch(fetchPodcastSuccess(response)))
+    .catch(reason => dispatch(fetchPodcastFailed(reason)));
 };

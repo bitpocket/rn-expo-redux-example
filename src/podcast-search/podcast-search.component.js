@@ -1,11 +1,10 @@
 import React from "react";
 import { View, TextInput, Text, StyleSheet, FlatList } from "react-native";
 import { Button } from "../button/button.component";
-import { fetchPodcasts } from "../services/podcast/podcast.actions";
 
 export class PodcastSearch extends React.Component {
   handleOnPress = () => {
-    const { searchPhrase } = this.props;
+    const { searchPhrase, fetchPodcasts } = this.props;
     fetchPodcasts(searchPhrase);
   };
 
@@ -19,7 +18,7 @@ export class PodcastSearch extends React.Component {
   };
 
   handleOnSubmitEditing = () => {
-    const { searchPhrase } = this.props;
+    const { searchPhrase, fetchPodcasts } = this.props;
     fetchPodcasts(searchPhrase);
   };
 

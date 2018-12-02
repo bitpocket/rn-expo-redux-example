@@ -1,8 +1,9 @@
-import { createStore, combineReducers } from 'redux';
-import { podcastReducer } from './services/podcast/podcast.reducer';
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { podcastReducer } from "./services/podcast/podcast.reducer";
 
 const rootReducer = combineReducers({
   podcasts: podcastReducer
 });
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, applyMiddleware(thunk));
