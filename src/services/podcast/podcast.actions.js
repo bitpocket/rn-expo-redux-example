@@ -29,10 +29,10 @@ export const clearSearchPhrase = () => dispatch =>
     type: CLEAR_SEARCH_PHRASE
   });
 
-export const fetchPodcasts = searchPhrase => dispatch => {
+export const fetchPodcasts = searchPhrase => (dispatch, getState, api) => {
   axios({
     method: "get",
-    url: `https://itunes.apple.com/search?term=${searchPhrase}&limit=25`
+    url: `${api}/search?term=${searchPhrase}&limit=25`
   })
     .then(response => dispatch(fetchPodcastSuccess(response)))
     .catch(reason => dispatch(fetchPodcastFailed(reason)));
