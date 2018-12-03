@@ -6,4 +6,6 @@ This application shows how to use `redux-thunk` with ReactNative application
 - configure store.
 - change plain actions into function actions
 
-See [link](https://www.npmjs.com/package/redux-thunk) for more info.
+See 
+- [link](https://www.npmjs.com/package/redux-thunk) for more info.
+- [link](https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60)
