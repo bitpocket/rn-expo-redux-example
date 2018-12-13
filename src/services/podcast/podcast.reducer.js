@@ -10,7 +10,6 @@ const initialState = {
 };
 
 export const podcastReducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case SET_SEARCH_PHRASE:
       return {
