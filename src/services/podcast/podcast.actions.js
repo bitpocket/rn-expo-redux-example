@@ -12,6 +12,11 @@ export const setSearchPhrase = searchPhrase => dispatch =>
     searchPhrase
   });
 
+export const clearSearchPhrase = searchPhrase => dispatch =>
+  dispatch({
+    type: CLEAR_SEARCH_PHRASE
+  });
+
 export const getRequestAction = (type, requestName, payload) => dispatch => {
   dispatch({
     type,
