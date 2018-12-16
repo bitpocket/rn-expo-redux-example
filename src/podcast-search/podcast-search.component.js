@@ -2,25 +2,29 @@ import React from "react";
 import { View, TextInput, Text, StyleSheet, FlatList } from "react-native";
 import { Button } from "../button/button.component";
 import { fetchPodcasts } from "../services/podcast/podcast.actions";
+import { observer } from "mobx-react/native";
 
+@observer
 export class PodcastSearch extends React.Component {
   handleOnPress = () => {
-    const { searchPhrase } = this.props;
-    fetchPodcasts(searchPhrase);
+    const { podcastStore } = this.props;
+    podcastStore.fetchPodcasts(podcastStore.searchPhrase);
   };
 
   handleClearStatePhrase = () => {
-    const { clearSearchPhrase } = this.props;
-    clearSearchPhrase();
+    const { podcastStore } = this.props;
+    podcastStore.searchPhrase = "";
+    podcastStore.searchResult = [];
   };
 
   handleOnChange = phrase => {
-    this.props.setSearchPhrase(phrase);
+    const { podcastStore } = this.props;
+    podcastStore.searchPhrase = phrase;
   };
 
   handleOnSubmitEditing = () => {
-    const { searchPhrase } = this.props;
-    fetchPodcasts(searchPhrase);
+    const { podcastStore } = this.props;
+    podcastStore.fetchPodcasts(podcastStore.searchPhrase);
   };
 
   renderResultItem = ({ item }) => (
@@ -30,7 +34,9 @@ export class PodcastSearch extends React.Component {
   );
 
   render() {
-    const { searchPhrase, searchResult } = this.props;
+    const { podcastStore } = this.props;
+    const searchPhrase = podcastStore.searchPhrase;
+    const searchResult = podcastStore.searchResult;
 
     return (
       <View style={styles.container}>
@@ -57,7 +63,7 @@ export class PodcastSearch extends React.Component {
           />
         </View>
         <View style={styles.resultContainer}>
-          <Text>{`search Phrase is: ${this.props.searchPhrase}`}</Text>
+          <Text>{`search Phrase is: ${searchPhrase}`}</Text>
           <FlatList
             data={searchResult}
             renderItem={this.renderResultItem}
